@@ -1,17 +1,12 @@
-const { Program } = require("commander");
+import { Command } from "commander";
 import {
   listContacts,
   getContactById,
-  removeContact,
   addContact,
-} from "./contacts";
+  removeContact,
+} from "./contacts.js";
 
-// listContacts();
-// getContactById("AeHIrLTr6JkxGE6SN-0Rw");
-// removeContact("AeHIrLTr6JkxGE6SN-0Rw");
-// addContact("Adam", "adam@dev.com", "(728) 292-8472");
-
-const program = new Program();
+const program = new Command();
 
 program
   .option("-a, --action <type>", "choose action")
@@ -19,6 +14,7 @@ program
   .option("-n, --name <type>", "user name")
   .option("-e, --email <type>", "user email")
   .option("-p, --phone <type>", "user phone");
+
 program.parse(process.argv);
 
 const argv = program.opts();
@@ -26,19 +22,19 @@ const argv = program.opts();
 function invokeAction({ action, id, name, email, phone }) {
   switch (action) {
     case "list":
-      // ...
+      listContacts();
       break;
 
     case "get":
-      // ... id
+      getContactById(id);
       break;
 
     case "add":
-      // ... name email phone
+      addContact(name, email, phone);
       break;
 
     case "remove":
-      // ... id
+      removeContact(id);
       break;
 
     default:
